@@ -1,6 +1,6 @@
 package com.astulnikov.bb1mainunit
 
-import com.astulnikov.bb1mainunit.communication.commands.Command
+import com.astulnikov.bb1mainunit.communication.command.Command
 import com.astulnikov.bb1mainunit.communication.SendCommandUartUseCase
 import com.astulnikov.bb1mainunit.communication.SendCommandUseCase
 import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
@@ -31,7 +31,7 @@ class SendCommandUseCaseTest {
     }
 
     @Test
-    fun test() {
+    fun sendCommand_bytesDataTransferred() {
         val data = byteArrayOf(2, 4, 6, 8)
 
         given(uartBB1Controller.sendData(data)).willReturn(Completable.complete())

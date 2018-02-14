@@ -3,6 +3,8 @@ package com.astulnikov.bb1mainunit.di.module
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.support.v4.app.Fragment
+import com.astulnikov.bb1mainunit.communication.ObserveMetricsUartUseCase
+import com.astulnikov.bb1mainunit.communication.ObserveMetricsUseCase
 import com.astulnikov.bb1mainunit.communication.SendCommandUartUseCase
 import com.astulnikov.bb1mainunit.communication.SendCommandUseCase
 import com.astulnikov.bb1mainunit.communication.uart.RealUartBB1Controller
@@ -40,7 +42,11 @@ abstract class DashboardFragmentModule {
 
     @Binds
     @PerFragment
-    abstract fun bindSendCommandUseCase(sendCommandUseCase: SendCommandUartUseCase): SendCommandUseCase
+    abstract fun bindSendCommandUseCase(sendCommandUartUseCase: SendCommandUartUseCase): SendCommandUseCase
+
+    @Binds
+    @PerFragment
+    abstract fun bindObserveMetricsUseCase(observeMetricsUartUseCase: ObserveMetricsUartUseCase): ObserveMetricsUseCase
 
     @Module
     companion object {

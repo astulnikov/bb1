@@ -1,6 +1,6 @@
 package com.astulnikov.bb1mainunit.communication
 
-import com.astulnikov.bb1mainunit.communication.commands.Command
+import com.astulnikov.bb1mainunit.communication.command.Command
 import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
 import io.reactivex.Completable
 import javax.inject.Inject

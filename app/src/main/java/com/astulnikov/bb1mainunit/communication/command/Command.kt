@@ -1,4 +1,4 @@
-package com.astulnikov.bb1mainunit.communication.commands
+package com.astulnikov.bb1mainunit.communication.command
 
 /**
  * @author aliaksei.stulnikau 29.01.18.
