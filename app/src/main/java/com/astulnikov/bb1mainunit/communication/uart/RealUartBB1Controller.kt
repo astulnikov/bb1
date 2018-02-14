@@ -1,4 +1,4 @@
-package com.astulnikov.bb1mainunit.uart
+package com.astulnikov.bb1mainunit.communication.uart
 
 import com.google.android.things.pio.PeripheralManagerService
 import com.google.android.things.pio.UartDevice

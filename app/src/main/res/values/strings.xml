@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">bb1-main-unit</string>
+
+    <string name="run_forward">Run Forward</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.astulnikov.bb1mainunit.uart
+package com.astulnikov.bb1mainunit.communication.uart
 
 import io.reactivex.Completable
 import io.reactivex.Observable

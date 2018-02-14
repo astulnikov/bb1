@@ -1,4 +1,4 @@
-package com.astulnikov.bb1mainunit.uart
+package com.astulnikov.bb1mainunit.arch
 
 /**
  * @author aliaksei.stulnikau 09.02.18.

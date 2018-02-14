@@ -1,7 +1,7 @@
 package com.astulnikov.bb1mainunit
 
-import com.astulnikov.bb1mainunit.uart.RealUartBB1Controller
-import com.astulnikov.bb1mainunit.uart.UartBB1Controller
+import com.astulnikov.bb1mainunit.communication.uart.RealUartBB1Controller
+import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
 import com.google.android.things.pio.PeripheralManagerService
 import com.google.android.things.pio.UartDevice
 import io.reactivex.observers.TestObserver
