@@ -75,7 +75,7 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManagerServic
         device.close()
     }
 
-    fun readUartBuffer(uart: UartDevice) {
+    private fun readUartBuffer(uart: UartDevice) {
         // Maximum amount of data to read at one time
         val result = ArrayList<Byte>()
         val maxCount = 1024

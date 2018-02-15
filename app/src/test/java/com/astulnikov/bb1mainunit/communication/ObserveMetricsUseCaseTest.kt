@@ -1,4 +1,4 @@
-package com.astulnikov.bb1mainunit
+package com.astulnikov.bb1mainunit.communication
 
 import com.astulnikov.bb1mainunit.arch.scheduler.TestSchedulerProvider
 import com.astulnikov.bb1mainunit.communication.ObserveMetricsUartUseCase

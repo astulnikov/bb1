@@ -13,15 +13,15 @@ import javax.inject.Inject
 /**
  * @author aliaksei.stulnikau 19.01.18.
  */
-class DashboardFragment : MvvmFragment<DashboardFragmentViewModel, FragmentDashboardBinding>() {
+class DashboardFragment : MvvmFragment<DashboardViewModel, FragmentDashboardBinding>() {
 
     @Inject
     lateinit var dashboardViewModelFactory: ViewModelProvider.NewInstanceFactory
 
     private var listener: OnFragmentInteractionListener? = null
 
-    override fun createViewModel(): DashboardFragmentViewModel {
-        return ViewModelProviders.of(this, dashboardViewModelFactory).get(DashboardFragmentViewModel::class.java)
+    override fun createViewModel(): DashboardViewModel {
+        return ViewModelProviders.of(this, dashboardViewModelFactory).get(DashboardViewModel::class.java)
     }
 
     override fun getLayoutId(): Int {

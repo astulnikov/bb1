@@ -18,7 +18,7 @@ abstract class BaseViewModel(val schedulerProvider: SchedulerProvider) : ViewMod
 
     private val actionSubject: PublishSubject<Action> = PublishSubject.create()
 
-    fun subscribeForEvents(actionConsumer: Consumer<Action>): Disposable {
+    protected fun subscribeForEvents(actionConsumer: Consumer<Action>): Disposable {
         return actionSubject.toSerialized().subscribe(actionConsumer)
     }
 
@@ -26,9 +26,9 @@ abstract class BaseViewModel(val schedulerProvider: SchedulerProvider) : ViewMod
         return actionSubject.toSerialized()
     }
 
-    fun start() {}
+    open fun start() {}
 
-    fun stop() {}
+    open fun stop() {}
 
     interface Action {
         val action: Int

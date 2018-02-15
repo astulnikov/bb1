@@ -1,4 +1,4 @@
-package com.astulnikov.bb1mainunit
+package com.astulnikov.bb1mainunit.communication
 
 import com.astulnikov.bb1mainunit.communication.command.Command
 import com.astulnikov.bb1mainunit.communication.SendCommandUartUseCase

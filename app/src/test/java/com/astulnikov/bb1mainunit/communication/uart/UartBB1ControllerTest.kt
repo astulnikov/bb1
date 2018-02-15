@@ -1,4 +1,4 @@
-package com.astulnikov.bb1mainunit
+package com.astulnikov.bb1mainunit.communication.uart
 
 import com.astulnikov.bb1mainunit.communication.uart.RealUartBB1Controller
 import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller

@@ -8,12 +8,12 @@ import javax.inject.Inject
 /**
  * @author aliaksei.stulnikau 20.01.18.
  */
-class DashboardViewModelFactory @Inject constructor(private val dashboardFragmentViewModel: Lazy<DashboardFragmentViewModel>) : ViewModelProvider.NewInstanceFactory() {
+class DashboardViewModelFactory @Inject constructor(private val dashboardViewModel: Lazy<DashboardViewModel>) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass == DashboardFragmentViewModel::class.java) {
-            return dashboardFragmentViewModel.get() as T
+        if (modelClass == DashboardViewModel::class.java) {
+            return dashboardViewModel.get() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class " + modelClass)
     }

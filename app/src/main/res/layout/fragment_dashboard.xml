@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="viewModel"
-            type="com.astulnikov.bb1mainunit.dashboard.DashboardFragmentViewModel"/>
+            type="com.astulnikov.bb1mainunit.dashboard.DashboardViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -13,43 +14,48 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{viewModel.name}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
             android:id="@+id/speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{viewModel.speed}"
+            android:text="@{@string/speed_pattern(viewModel.speed)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Speed: 500"/>
 
         <TextView
             android:id="@+id/rear_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{viewModel.rearDistance}"
+            android:text="@{@string/rear_distance_pattern(viewModel.rearDistance)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/speed"/>
+            app:layout_constraintTop_toBottomOf="@id/speed"
+            tools:text="Rear distance: 150"/>
 
         <ImageButton
             android:id="@+id/run_forward_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginTop="48dp"
             android:background="@drawable/ic_arrow_upward_black"
             android:contentDescription="@string/run_forward"
             android:onClick="@{() -> viewModel.onRunForwardClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rear_distance"/>
+
+        <ImageButton
+            android:id="@+id/run_backward_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/ic_arrow_downward_black"
+            android:contentDescription="@string/run_backward"
+            android:onClick="@{() -> viewModel.onRunBackwardClicked()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/run_forward_button"/>
     </android.support.constraint.ConstraintLayout>
 </layout>
