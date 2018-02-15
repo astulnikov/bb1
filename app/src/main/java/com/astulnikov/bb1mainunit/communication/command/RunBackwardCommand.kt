@@ -6,6 +6,6 @@ package com.astulnikov.bb1mainunit.communication.command
 class RunBackwardCommand : Command {
 
     override fun getBytes(): ByteArray {
-        return byteArrayOf(1)
+        return byteArrayOf(RUN_BACKWARD_CODE.toByte())
     }
 }

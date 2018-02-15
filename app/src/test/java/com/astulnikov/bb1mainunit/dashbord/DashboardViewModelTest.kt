@@ -5,8 +5,7 @@ import com.astulnikov.bb1mainunit.communication.ObserveMetricsUseCase
 import com.astulnikov.bb1mainunit.communication.SendCommandUseCase
 import com.astulnikov.bb1mainunit.communication.command.RunBackwardCommand
 import com.astulnikov.bb1mainunit.communication.command.RunForwardCommand
-import com.astulnikov.bb1mainunit.communication.metric.RearDistanceMetric
-import com.astulnikov.bb1mainunit.communication.metric.SpeedMetric
+import com.astulnikov.bb1mainunit.communication.metric.Metric
 import com.astulnikov.bb1mainunit.dashboard.DashboardViewModel
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -21,6 +20,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.only
 import org.mockito.junit.MockitoJUnitRunner
+import java.nio.ByteBuffer
 
 /**
  * @author aliaksei.stulnikau 15.02.18.
@@ -48,8 +48,12 @@ class DashboardViewModelTest {
 
     @Test
     fun subscribeForMetrics_speed_propertyInitialised() {
-        val data = byteArrayOf(4)
-        val testMetric = SpeedMetric(data)
+        val bytes = ByteBuffer.allocate(java.lang.Float.BYTES)
+                .putFloat(100.5f)
+                .array()
+        val data = byteArrayOf(0).plus(bytes)
+        val testMetric = Metric(data)
+
         given(observeMetricsUseCase.execute()).willReturn(Observable.just(testMetric))
 
         dashboardViewModel.start()
@@ -60,8 +64,12 @@ class DashboardViewModelTest {
 
     @Test
     fun subscribeForMetrics_rearDistance_propertyInitialised() {
-        val data = byteArrayOf(4)
-        val testMetric = RearDistanceMetric(data)
+        val bytes = ByteBuffer.allocate(java.lang.Integer.BYTES)
+                .putInt(118)
+                .array()
+        val data = byteArrayOf(1).plus(bytes)
+        val testMetric = Metric(data)
+
         given(observeMetricsUseCase.execute()).willReturn(Observable.just(testMetric))
 
         dashboardViewModel.start()

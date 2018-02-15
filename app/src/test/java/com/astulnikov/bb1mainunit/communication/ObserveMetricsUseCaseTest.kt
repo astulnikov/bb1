@@ -1,8 +1,6 @@
 package com.astulnikov.bb1mainunit.communication
 
 import com.astulnikov.bb1mainunit.arch.scheduler.TestSchedulerProvider
-import com.astulnikov.bb1mainunit.communication.ObserveMetricsUartUseCase
-import com.astulnikov.bb1mainunit.communication.ObserveMetricsUseCase
 import com.astulnikov.bb1mainunit.communication.metric.Metric
 import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
 import io.reactivex.Observable
@@ -13,6 +11,7 @@ import org.junit.runner.RunWith
 import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import java.nio.ByteBuffer
 
 /**
  * @author aliaksei.stulnikau 14.02.18.
@@ -35,7 +34,10 @@ class ObserveMetricsUseCaseTest {
 
     @Test
     fun subscribe_SpeedMetricReceived() {
-        val data = byteArrayOf(2, 4, 6, 8)
+        val bytes = ByteBuffer.allocate(java.lang.Float.BYTES)
+                .putFloat(100.5f)
+                .array()
+        val data = byteArrayOf(0).plus(bytes)
         val testMetric = Metric(data)
 
         given(uartBB1Controller.subscribeForData()).willReturn(Observable.just(data))
