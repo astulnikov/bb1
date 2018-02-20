@@ -10,7 +10,7 @@ interface Metric<out T : Any> {
             return when (byteArray[0]) {
                 SPEED_METRIC_CODE.toByte() -> SpeedMetric(usefulData)
                 REAR_DISTANCE_METRIC_CODE.toByte() -> RearDistanceMetric(usefulData)
-                else -> SpeedMetric(usefulData)
+                else -> RawMetric(byteArray)
             }
         }
     }

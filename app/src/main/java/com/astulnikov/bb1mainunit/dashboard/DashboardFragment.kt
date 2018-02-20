@@ -15,6 +15,15 @@ import javax.inject.Inject
  */
 class DashboardFragment : MvvmFragment<DashboardViewModel, FragmentDashboardBinding>() {
 
+    companion object {
+        fun newInstance(): DashboardFragment {
+            val fragment = DashboardFragment()
+            val args = Bundle()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     @Inject
     lateinit var dashboardViewModelFactory: ViewModelProvider.NewInstanceFactory
 
@@ -40,15 +49,5 @@ class DashboardFragment : MvvmFragment<DashboardViewModel, FragmentDashboardBind
     override fun onDetach() {
         super.onDetach()
         listener = null
-    }
-
-    companion object {
-
-        fun newInstance(): DashboardFragment {
-            val fragment = DashboardFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }
