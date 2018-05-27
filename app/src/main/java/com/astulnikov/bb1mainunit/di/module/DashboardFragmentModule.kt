@@ -13,7 +13,7 @@ import com.astulnikov.bb1mainunit.dashboard.DashboardFragment
 import com.astulnikov.bb1mainunit.dashboard.DashboardViewModel
 import com.astulnikov.bb1mainunit.dashboard.DashboardViewModelFactory
 import com.astulnikov.bb1mainunit.di.scope.PerFragment
-import com.google.android.things.pio.PeripheralManagerService
+import com.google.android.things.pio.PeripheralManager
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -54,8 +54,8 @@ abstract class DashboardFragmentModule {
         @JvmStatic
         @Provides
         @PerFragment
-        fun providePeripheralManagerService(): PeripheralManagerService {
-            return PeripheralManagerService()
+        fun providePeripheralManagerService(): PeripheralManager {
+            return PeripheralManager.getInstance()
         }
     }
 }

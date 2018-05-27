@@ -9,7 +9,6 @@ import com.astulnikov.bb1mainunit.communication.SendCommandUseCase
 import com.astulnikov.bb1mainunit.communication.command.Command
 import com.astulnikov.bb1mainunit.communication.command.RunBackwardCommand
 import com.astulnikov.bb1mainunit.communication.command.RunForwardCommand
-import com.astulnikov.bb1mainunit.communication.command.RunStopCommand
 import com.astulnikov.bb1mainunit.communication.metric.RearDistanceMetric
 import com.astulnikov.bb1mainunit.communication.metric.SpeedMetric
 import io.reactivex.disposables.CompositeDisposable
@@ -35,8 +34,12 @@ class DashboardViewModel @Inject constructor(schedulerProvider: SchedulerProvide
                 .subscribe({
                     when (it) {
                         is SpeedMetric -> speed.set(it.getValue())
-                        is RearDistanceMetric -> rearDistance.set(it.getValue())
+                        is RearDistanceMetric -> {
+                            rearDistance.set(it.getValue())
+                            observeMetricsUseCase.apply(it)
+                        }
                     }
+                    Timber.i("Metrics received: %s", it.getValue())
                 }))
     }
 

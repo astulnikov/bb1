@@ -14,4 +14,8 @@ class ObserveMetricsUartUseCase @Inject constructor(private var uartBB1Controlle
         return uartBB1Controller.subscribeForData()
                 .map { data -> Metric(data) }
     }
+
+    override fun apply(metric: Metric<Int>) {
+
+    }
 }

@@ -9,4 +9,6 @@ import io.reactivex.Observable
  */
 interface ObserveMetricsUseCase : UseCase {
     fun execute(): Observable<Metric<Any>>
+
+    fun apply(metric: Metric<Int>)
 }

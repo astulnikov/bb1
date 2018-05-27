@@ -5,4 +5,4 @@ package com.astulnikov.bb1mainunit.communication.metric
  */
 
 const val SPEED_METRIC_CODE = 0
-const val REAR_DISTANCE_METRIC_CODE = 1
+const val REAR_DISTANCE_METRIC_CODE = 3

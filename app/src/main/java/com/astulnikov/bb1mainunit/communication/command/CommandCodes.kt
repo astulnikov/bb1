@@ -7,3 +7,4 @@ package com.astulnikov.bb1mainunit.communication.command
 const val RUN_STOP_CODE = 0
 const val RUN_FORWARD_CODE = 1
 const val RUN_BACKWARD_CODE = 2
+const val TURN_TO_ANGLE_CODE = 3

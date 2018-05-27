@@ -46,6 +46,16 @@ class DashboardFragment : MvvmFragment<DashboardViewModel, FragmentDashboardBind
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getViewModel().start()
+    }
+
+    override fun onPause() {
+        getViewModel().stop()
+        super.onPause()
+    }
+
     override fun onDetach() {
         super.onDetach()
         listener = null

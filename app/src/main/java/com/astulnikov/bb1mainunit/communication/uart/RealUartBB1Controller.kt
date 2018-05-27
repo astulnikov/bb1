@@ -1,6 +1,6 @@
 package com.astulnikov.bb1mainunit.communication.uart
 
-import com.google.android.things.pio.PeripheralManagerService
+import com.google.android.things.pio.PeripheralManager
 import com.google.android.things.pio.UartDevice
 import com.google.android.things.pio.UartDeviceCallback
 import io.reactivex.Completable
@@ -16,10 +16,10 @@ import javax.inject.Inject
 /**
  * @author aliaksei.stulnikau 29.01.18.
  */
-class RealUartBB1Controller @Inject constructor(manager: PeripheralManagerService) : UartBB1Controller {
+class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : UartBB1Controller {
 
     companion object {
-        private const val UART_DEVICE_NAME = "device"
+        private const val UART_DEVICE_NAME = "UART0"
     }
 
     private val metricsSubject: Subject<ByteArray> = PublishSubject.create()
@@ -34,8 +34,9 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManagerServic
             Timber.i("List of available devices: " + deviceList)
 
             device = manager.openUartDevice(UART_DEVICE_NAME)
+            device.setBaudrate(9600)
             try {
-                callback = object : UartDeviceCallback() {
+                callback = object : UartDeviceCallback {
                     override fun onUartDeviceDataAvailable(uart: UartDevice?): Boolean {
                         try {
                             if (uart != null) {
@@ -80,12 +81,13 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManagerServic
         val result = ArrayList<Byte>()
         val maxCount = 1024
         val buffer = ByteArray(maxCount)
-        var count: Int
-        do {
-            count = uart.read(buffer, buffer.size)
+        while (true) {
+            val count = uart.read(buffer, buffer.size)
+            if (count <= 0) break
             result.addAll(buffer.asList())
-            Timber.d("Read " + count + " bytes from peripheral")
-        } while (count > 0)
+            Timber.d("Read $count bytes from peripheral")
+            Timber.d("Read: ${buffer.contentToString()}")
+        }
         metricsSubject.onNext(result.toByteArray())
     }
 }

@@ -3,7 +3,8 @@
     package="com.astulnikov.bb1mainunit">
 
     <application
-        android:name=".App">
+        android:name=".App"
+        android:theme="@style/Base.Theme.AppCompat">
         <uses-library android:name="com.google.android.things"/>
 
         <activity android:name=".MainActivity">
