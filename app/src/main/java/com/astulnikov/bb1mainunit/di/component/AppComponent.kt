@@ -1,8 +1,10 @@
 package com.astulnikov.bb1mainunit.di.component
 
+import android.app.Application
 import com.astulnikov.bb1mainunit.App
 import com.astulnikov.bb1mainunit.di.module.AppModule
 import com.astulnikov.bb1mainunit.di.module.SchedulerModule
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import javax.inject.Singleton
@@ -15,5 +17,13 @@ import javax.inject.Singleton
 interface AppComponent : AndroidInjector<App> {
 
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<App>()
+    interface Builder {
+
+        fun build(): AppComponent
+
+        @BindsInstance
+        fun application(application: Application): Builder
+    }
+
+    override fun inject(app: App)
 }

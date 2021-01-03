@@ -3,13 +3,12 @@ package com.astulnikov.bb1mainunit.communication.uart
 import com.google.android.things.pio.PeripheralManager
 import com.google.android.things.pio.UartDevice
 import com.google.android.things.pio.UartDeviceCallback
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
 import timber.log.Timber
 import java.io.IOException
-import java.util.*
 import javax.inject.Inject
 
 
@@ -31,7 +30,7 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : Ua
         if (deviceList.isEmpty()) {
             Timber.i("No UART port available on this device.")
         } else {
-            Timber.i("List of available devices: " + deviceList)
+            Timber.i("List of available devices: $deviceList")
 
             device = manager.openUartDevice(UART_DEVICE_NAME)
             device.setBaudrate(9600)
@@ -43,7 +42,7 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : Ua
                                 readUartBuffer(uart)
                             }
                         } catch (e: IOException) {
-                            Timber.w("Unable to access UART device", e)
+                            Timber.w(e, "Unable to access UART device")
                         }
 
                         return true
@@ -65,10 +64,10 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : Ua
     }
 
     override fun sendData(data: ByteArray): Completable {
-        return Completable.fromAction({
+        return Completable.fromAction {
             val count = device.write(data, data.size)
             Timber.d("Wrote $count bytes to peripheral")
-        })
+        }
     }
 
     override fun release() {

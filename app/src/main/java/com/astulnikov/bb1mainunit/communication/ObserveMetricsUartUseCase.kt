@@ -2,7 +2,7 @@ package com.astulnikov.bb1mainunit.communication
 
 import com.astulnikov.bb1mainunit.communication.metric.Metric
 import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 /**

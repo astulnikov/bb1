@@ -1,6 +1,6 @@
 package com.astulnikov.bb1mainunit.di.module
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.astulnikov.bb1mainunit.MainActivity
 import com.astulnikov.bb1mainunit.dashboard.DashboardFragment
 import com.astulnikov.bb1mainunit.di.scope.PerActivity

@@ -1,7 +1,7 @@
 package com.astulnikov.bb1mainunit.di.module
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.astulnikov.bb1mainunit.di.qualifier.ChildFragmentManager
 import com.astulnikov.bb1mainunit.di.scope.PerFragment
 import dagger.Module

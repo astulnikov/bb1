@@ -1,9 +1,11 @@
 package com.astulnikov.bb1mainunit.dashboard
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.astulnikov.bb1mainunit.R
 import com.astulnikov.bb1mainunit.arch.MvvmFragment
 import com.astulnikov.bb1mainunit.arch.OnFragmentInteractionListener
@@ -37,12 +39,12 @@ class DashboardFragment : MvvmFragment<DashboardViewModel, FragmentDashboardBind
         return R.layout.fragment_dashboard
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 
@@ -59,5 +61,11 @@ class DashboardFragment : MvvmFragment<DashboardViewModel, FragmentDashboardBind
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    private fun replaceChildFragment(@IdRes containerViewId: Int, fragment: Fragment) {
+        childFragmentManager.beginTransaction()
+                .replace(containerViewId, fragment)
+                .commit()
     }
 }

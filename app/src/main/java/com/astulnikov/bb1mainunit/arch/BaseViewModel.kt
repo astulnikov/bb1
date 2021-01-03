@@ -1,12 +1,12 @@
 package com.astulnikov.bb1mainunit.arch
 
-import android.arch.lifecycle.ViewModel
 import android.os.Bundle
+import androidx.lifecycle.ViewModel
 import com.astulnikov.bb1mainunit.arch.scheduler.SchedulerProvider
-import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
 
 /**
  * @author aliaksei.stulnikau 20.01.18.

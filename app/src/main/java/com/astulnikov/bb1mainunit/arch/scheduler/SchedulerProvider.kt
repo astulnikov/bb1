@@ -1,6 +1,7 @@
 package com.astulnikov.bb1mainunit.arch.scheduler
 
-import io.reactivex.Scheduler
+import io.reactivex.rxjava3.core.Scheduler
+
 
 /**
  * @author aliaksei.stulnikau 20.01.18.

@@ -3,6 +3,7 @@
 
     <string name="speed_pattern">Speed: %.2f</string>
     <string name="rear_distance_pattern">Rear distance: %d</string>
+    <string name="heading_pattern">heading: %.2f</string>
 
     <string name="run_forward">Run Forward</string>
     <string name="run_backward">Run Backward</string>

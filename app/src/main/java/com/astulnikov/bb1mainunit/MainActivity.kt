@@ -1,23 +1,19 @@
 package com.astulnikov.bb1mainunit
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.util.Log
+import androidx.fragment.app.Fragment
 import com.astulnikov.bb1mainunit.arch.DaggerActivity
 import com.astulnikov.bb1mainunit.arch.OnFragmentInteractionListener
 import com.astulnikov.bb1mainunit.dashboard.DashboardFragment
-import javax.inject.Inject
+import timber.log.Timber
 
 /**
  * @author aliaksei.stulnikau 19.01.18.
  */
 class MainActivity : DaggerActivity(), OnFragmentInteractionListener {
 
-    @Inject
-    lateinit var app: App
-
     override fun onFragmentInteraction(uri: String) {
-        Log.d(localClassName, "Url: $uri")
+        Timber.d("Url: $uri")
         title = uri
     }
 

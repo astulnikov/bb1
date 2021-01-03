@@ -19,7 +19,7 @@ android {
         targetSdkVersion ANDROID_TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -34,31 +34,28 @@ android {
 }
 
 dependencies {
-    compileOnly 'com.google.android.things:androidthings:+'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
-    kapt "com.android.databinding:compiler:$GRADLE_ANDROID_PLUGIN_VERSION"
+    compileOnly 'com.google.android.things:androidthings:1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    implementation 'com.jakewharton.timber:timber:4.5.1'
-
-    implementation "com.android.support:support-v4:$ANDROID_SUPPORT_VERSION"
-    implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
-    implementation "com.android.support:design:$ANDROID_SUPPORT_VERSION"
-    implementation "com.android.support.constraint:constraint-layout:$CONSTRAIT_LAYOUT_VERSION"
+    implementation "androidx.appcompat:appcompat:$ANDROID_SUPPORT_VERSION"
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
 
     implementation "com.google.dagger:dagger-android:$DAGGER_VERSION"
     implementation "com.google.dagger:dagger-android-support:$DAGGER_VERSION"
     kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     kapt "com.google.dagger:dagger-android-processor:$DAGGER_VERSION"
 
-    implementation "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION"
-    implementation "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
+    implementation "io.reactivex.rxjava3:rxjava:$RXJAVA_VERSION"
+    implementation "io.reactivex.rxjava3:rxandroid:$RXANDROID_VERSION"
 
-    implementation "android.arch.lifecycle:extensions:$ANDROID_ARCH_COMPONENTS_VERSION"
-    implementation "android.arch.lifecycle:common-java8:$ANDROID_ARCH_COMPONENTS_VERSION"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
-    testImplementation 'com.google.android.things:androidthings:+'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation 'com.google.android.things:androidthings:1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

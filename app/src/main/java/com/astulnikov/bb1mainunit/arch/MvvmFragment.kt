@@ -1,12 +1,13 @@
 package com.astulnikov.bb1mainunit.arch
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.astulnikov.bb1mainunit.BR
+import dagger.android.support.DaggerFragment
 
 /**
  * @author aliaksei.stulnikau 20.01.18.

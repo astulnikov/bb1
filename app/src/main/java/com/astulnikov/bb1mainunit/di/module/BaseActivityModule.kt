@@ -1,7 +1,7 @@
 package com.astulnikov.bb1mainunit.di.module
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.astulnikov.bb1mainunit.di.qualifier.ActivityFragmentManager
 import com.astulnikov.bb1mainunit.di.scope.PerActivity
 import dagger.Binds

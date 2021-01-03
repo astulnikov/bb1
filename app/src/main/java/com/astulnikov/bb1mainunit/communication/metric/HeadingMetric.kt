@@ -5,7 +5,7 @@ import java.nio.ByteBuffer
 /**
  * @author aliaksei.stulnikau 14.02.18.
  */
-class SpeedMetric(val data: ByteArray) : Metric<Float> {
+class HeadingMetric(val data: ByteArray) : Metric<Float> {
 
     private var value: Float = ByteBuffer.wrap(data.copyOf(4).apply { reverse() }).float
 

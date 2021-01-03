@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.astulnikov.bb1mainunit.dashboard.DashboardViewModel"/>
+            type="com.astulnikov.bb1mainunit.dashboard.DashboardViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Speed: 500"/>
+            tools:text="Speed: 500" />
 
         <TextView
             android:id="@+id/rear_distance"
@@ -33,7 +34,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/speed"
-            tools:text="Rear distance: 150"/>
+            tools:text="Rear distance: 150" />
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{@string/heading_pattern(viewModel.heading)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rear_distance"
+            tools:text="Heading: 150" />
 
         <ImageButton
             android:id="@+id/run_forward_button"
@@ -45,7 +57,7 @@
             android:onClick="@{() -> viewModel.onRunForwardClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rear_distance"/>
+            app:layout_constraintTop_toBottomOf="@id/rear_distance" />
 
         <ImageButton
             android:id="@+id/run_backward_button"
@@ -56,6 +68,6 @@
             android:onClick="@{() -> viewModel.onRunBackwardClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/run_forward_button"/>
-    </android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/run_forward_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
