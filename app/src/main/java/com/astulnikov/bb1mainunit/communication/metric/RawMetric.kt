@@ -5,8 +5,9 @@ package com.astulnikov.bb1mainunit.communication.metric
  */
 class RawMetric(val data: ByteArray) : Metric<ByteArray> {
 
-
     override fun getValue(): ByteArray {
         return data
     }
+
+    override fun getBytes(): ByteArray = data
 }

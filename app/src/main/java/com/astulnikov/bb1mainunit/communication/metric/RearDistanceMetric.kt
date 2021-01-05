@@ -11,4 +11,6 @@ class RearDistanceMetric(val data: ByteArray) : Metric<Int> {
     override fun getValue(): Int {
         return value
     }
+
+    override fun getBytes(): ByteArray = data
 }

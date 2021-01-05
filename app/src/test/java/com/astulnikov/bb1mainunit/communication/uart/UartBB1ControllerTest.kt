@@ -1,15 +1,16 @@
 package com.astulnikov.bb1mainunit.communication.uart
 
-import com.google.android.things.pio.PeripheralManagerService
+import com.astulnikov.bb1mainunit.communication.BB1CommunicationController
+import com.google.android.things.pio.PeripheralManager
 import com.google.android.things.pio.UartDevice
-import io.reactivex.observers.TestObserver
+import io.reactivex.rxjava3.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.BDDMockito.given
 import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 
@@ -20,11 +21,12 @@ import java.util.*
 class UartBB1ControllerTest {
 
     @Mock
-    private lateinit var manager: PeripheralManagerService
+    private lateinit var manager: PeripheralManager
+
     @Mock
     private lateinit var device: UartDevice
 
-    private lateinit var uartBB1Controller: UartBB1Controller
+    private lateinit var uartBB1Controller: BB1CommunicationController
 
     @Before
     fun setUp() {
@@ -39,6 +41,6 @@ class UartBB1ControllerTest {
         val data = byteArrayOf(2, 4, 6, 8)
         val observer: TestObserver<Void> = uartBB1Controller.sendData(data).test()
         observer.assertNoErrors()
-        Mockito.verify(device, Mockito.only()).write(data, data.size)
+        verify(device).write(data, data.size)
     }
 }

@@ -1,6 +1,7 @@
 package com.astulnikov.bb1mainunit
 
 import com.astulnikov.bb1mainunit.di.component.DaggerAppComponent
+import com.google.android.things.AndroidThings
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
@@ -15,5 +16,7 @@ class App : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) run { Timber.plant(Timber.DebugTree()) }
+
+        Timber.i("Android Things. Version ${AndroidThings.RELEASE} - ${AndroidThings.Product.BUILD_NAME}")
     }
 }

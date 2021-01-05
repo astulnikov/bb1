@@ -4,6 +4,7 @@ import androidx.databinding.ObservableFloat
 import androidx.databinding.ObservableInt
 import com.astulnikov.bb1mainunit.arch.BaseViewModel
 import com.astulnikov.bb1mainunit.arch.scheduler.SchedulerProvider
+import com.astulnikov.bb1mainunit.communication.ObserveCommandsUseCase
 import com.astulnikov.bb1mainunit.communication.ObserveMetricsUseCase
 import com.astulnikov.bb1mainunit.communication.SendCommandUseCase
 import com.astulnikov.bb1mainunit.communication.command.Command
@@ -13,12 +14,9 @@ import com.astulnikov.bb1mainunit.communication.command.RunStopCommand
 import com.astulnikov.bb1mainunit.communication.metric.HeadingMetric
 import com.astulnikov.bb1mainunit.communication.metric.RearDistanceMetric
 import com.astulnikov.bb1mainunit.communication.metric.SpeedMetric
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.random.Random
 
 /**
  * @author aliaksei.stulnikau 20.01.18.
@@ -26,7 +24,8 @@ import kotlin.random.Random
 class DashboardViewModel @Inject constructor(
         schedulerProvider: SchedulerProvider,
         private val sendCommandUseCase: SendCommandUseCase,
-        private val observeMetricsUseCase: ObserveMetricsUseCase
+        private val observeMetricsUseCase: ObserveMetricsUseCase,
+        private val observeCommandsUseCase: ObserveCommandsUseCase
 ) : BaseViewModel(schedulerProvider) {
 
     val speed = ObservableFloat()
@@ -51,15 +50,23 @@ class DashboardViewModel @Inject constructor(
                     Timber.i("Metrics ${it::class.simpleName} received:  ${it.getValue()}")
                 })
 
-        Observable.interval(2000L, 2000L, TimeUnit.MILLISECONDS)
-                .subscribe { time ->
-                    Timber.d("Time: $time")
-                    if (Random.nextBoolean()) {
-                        onRunForwardClicked()
-                    } else {
-                        onStopClicked()
-                    }
-                }
+        compositeDisposable.add(
+                observeCommandsUseCase.execute()
+                        .subscribeOn(schedulerProvider.io())
+                        .subscribe {
+                            Timber.i("Command ${it::class.simpleName} received:  ${it.getBytes()}")
+                        }
+        )
+
+//        Observable.interval(2000L, 2000L, TimeUnit.MILLISECONDS)
+//                .subscribe { time ->
+//                    Timber.d("Time: $time")
+//                    if (Random.nextBoolean()) {
+//                        onRunForwardClicked()
+//                    } else {
+//                        onStopClicked()
+//                    }
+//                }
     }
 
     fun onRunForwardClicked() {

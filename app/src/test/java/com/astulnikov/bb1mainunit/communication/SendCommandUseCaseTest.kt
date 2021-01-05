@@ -1,8 +1,8 @@
 package com.astulnikov.bb1mainunit.communication
 
 import com.astulnikov.bb1mainunit.communication.command.RunForwardCommand
-import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
-import io.reactivex.Completable
+import com.astulnikov.bb1mainunit.communication.uart.SendCommandUartUseCase
+import io.reactivex.rxjava3.core.Completable
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,7 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class SendCommandUseCaseTest {
 
     @Mock
-    private lateinit var uartBB1Controller: UartBB1Controller
+    private lateinit var uartBB1Controller: BB1CommunicationController
 
     private lateinit var sendCommandUseCase: SendCommandUseCase
 

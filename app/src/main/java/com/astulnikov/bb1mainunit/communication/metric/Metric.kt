@@ -17,4 +17,5 @@ interface Metric<out T : Any> {
     }
 
     fun getValue(): T
+    fun getBytes(): ByteArray
 }

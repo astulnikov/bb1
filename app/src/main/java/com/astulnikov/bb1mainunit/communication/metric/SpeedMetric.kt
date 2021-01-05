@@ -12,4 +12,6 @@ class SpeedMetric(val data: ByteArray) : Metric<Float> {
     override fun getValue(): Float {
         return value
     }
+
+    override fun getBytes(): ByteArray = data
 }

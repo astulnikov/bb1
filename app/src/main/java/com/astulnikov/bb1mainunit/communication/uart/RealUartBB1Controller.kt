@@ -1,5 +1,6 @@
 package com.astulnikov.bb1mainunit.communication.uart
 
+import com.astulnikov.bb1mainunit.communication.BB1CommunicationController
 import com.google.android.things.pio.PeripheralManager
 import com.google.android.things.pio.UartDevice
 import com.google.android.things.pio.UartDeviceCallback
@@ -15,7 +16,7 @@ import javax.inject.Inject
 /**
  * @author aliaksei.stulnikau 29.01.18.
  */
-class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : UartBB1Controller {
+class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : BB1CommunicationController {
 
     companion object {
         private const val UART_DEVICE_NAME = "UART0"

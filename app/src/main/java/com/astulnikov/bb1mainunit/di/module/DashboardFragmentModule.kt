@@ -1,14 +1,17 @@
 package com.astulnikov.bb1mainunit.di.module
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.fragment.app.Fragment
-import com.astulnikov.bb1mainunit.communication.ObserveMetricsUartUseCase
-import com.astulnikov.bb1mainunit.communication.ObserveMetricsUseCase
-import com.astulnikov.bb1mainunit.communication.SendCommandUartUseCase
-import com.astulnikov.bb1mainunit.communication.SendCommandUseCase
+import com.astulnikov.bb1mainunit.communication.*
+import com.astulnikov.bb1mainunit.communication.bluetooth.BluetoothQualifier
+import com.astulnikov.bb1mainunit.communication.bluetooth.ObserveCommandsBluetoothUseCase
+import com.astulnikov.bb1mainunit.communication.bluetooth.RealBluetoothBB1Controller
+import com.astulnikov.bb1mainunit.communication.bluetooth.SendMetricsBluetoothUseCase
+import com.astulnikov.bb1mainunit.communication.uart.ObserveMetricsUartUseCase
 import com.astulnikov.bb1mainunit.communication.uart.RealUartBB1Controller
-import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
+import com.astulnikov.bb1mainunit.communication.uart.SendCommandUartUseCase
+import com.astulnikov.bb1mainunit.communication.uart.UartQualifier
 import com.astulnikov.bb1mainunit.dashboard.DashboardFragment
 import com.astulnikov.bb1mainunit.dashboard.DashboardViewModel
 import com.astulnikov.bb1mainunit.dashboard.DashboardViewModelFactory
@@ -38,7 +41,8 @@ abstract class DashboardFragmentModule {
 
     @Binds
     @PerFragment
-    abstract fun bindUartBB1Controller(uartBB1Controller: RealUartBB1Controller): UartBB1Controller
+    @UartQualifier
+    abstract fun bindUartBB1Controller(uartBB1Controller: RealUartBB1Controller): BB1CommunicationController
 
     @Binds
     @PerFragment
@@ -48,10 +52,21 @@ abstract class DashboardFragmentModule {
     @PerFragment
     abstract fun bindObserveMetricsUseCase(observeMetricsUartUseCase: ObserveMetricsUartUseCase): ObserveMetricsUseCase
 
-    @Module
+    @Binds
+    @PerFragment
+    @BluetoothQualifier
+    abstract fun bindBluetoothBB1Controller(bluetoothBB1Controller: RealBluetoothBB1Controller): BB1CommunicationController
+
+    @Binds
+    @PerFragment
+    abstract fun bindObserveCommandsUseCase(observeCommandsUseCase: ObserveCommandsBluetoothUseCase): ObserveCommandsUseCase
+
+    @Binds
+    @PerFragment
+    abstract fun bindSendMetricsUseCase(sendMetricsUseCase: SendMetricsBluetoothUseCase): SendMetricsUseCase
+
     companion object {
 
-        @JvmStatic
         @Provides
         @PerFragment
         fun providePeripheralManagerService(): PeripheralManager {

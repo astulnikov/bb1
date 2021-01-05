@@ -2,9 +2,9 @@ package com.astulnikov.bb1mainunit.communication
 
 import com.astulnikov.bb1mainunit.arch.scheduler.TestSchedulerProvider
 import com.astulnikov.bb1mainunit.communication.metric.Metric
-import com.astulnikov.bb1mainunit.communication.uart.UartBB1Controller
-import io.reactivex.Observable
-import io.reactivex.schedulers.TestScheduler
+import com.astulnikov.bb1mainunit.communication.uart.ObserveMetricsUartUseCase
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,7 +20,7 @@ import java.nio.ByteBuffer
 class ObserveMetricsUseCaseTest {
 
     @Mock
-    private lateinit var uartBB1Controller: UartBB1Controller
+    private lateinit var uartBB1Controller: BB1CommunicationController
 
     private lateinit var observeMetricsUseCase: ObserveMetricsUseCase
 
@@ -50,6 +50,6 @@ class ObserveMetricsUseCaseTest {
 
         testObserver
                 .assertNoErrors()
-                .assertValue({ value -> value.getValue() == testMetric.getValue() })
+                .assertValue { value -> value.getValue() == testMetric.getValue() }
     }
 }
