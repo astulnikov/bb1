@@ -1,14 +1,11 @@
 package com.astulnikov.bb1mainunit.communication.bluetooth
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothClass
 import android.content.Context
+import android.content.Intent
 import com.astulnikov.bb1mainunit.communication.BB1CommunicationController
 import com.github.ivbaranov.rxbluetooth.BluetoothConnection
 import com.github.ivbaranov.rxbluetooth.RxBluetooth
-import com.google.android.things.bluetooth.BluetoothClassFactory
-import com.google.android.things.bluetooth.BluetoothConfigManager
-import com.google.android.things.bluetooth.BluetoothProfileManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxjava3.core.Completable
@@ -19,12 +16,13 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
-private val SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+private val SPP_UUID = UUID.fromString("bbdeb0c8-ecbe-4779-9c5e-15ce43a34785")
 private const val SERVER_NAME = "BB1_Server"
 private const val END_LINE_SYMBOL = 'l'
+private const val DISCOVERY_TIMEOUT = 300
 
 class RealBluetoothBB1Controller @Inject constructor(
-        appContext: Context
+        private val appContext: Context
 ) : BB1CommunicationController {
 
     private val rxBluetooth: RxBluetooth = RxBluetooth(appContext)
@@ -46,14 +44,6 @@ class RealBluetoothBB1Controller @Inject constructor(
         )
 
         Timber.i("Configure Bluetooth...")
-        val manager = BluetoothConfigManager.getInstance()
-        manager.bluetoothClass = BluetoothClassFactory.build(
-                BluetoothClass.Service.INFORMATION,
-                BluetoothClass.Device.COMPUTER_SERVER
-        )
-        manager.ioCapability = BluetoothConfigManager.IO_CAPABILITY_IO
-        val enabledProfiles = BluetoothProfileManager.getInstance().enabledProfiles
-        Timber.d("enabledProfiles $enabledProfiles")
 
         if (!rxBluetooth.isBluetoothAvailable) {
             Timber.w("Bluetooth is not available")
@@ -64,12 +54,69 @@ class RealBluetoothBB1Controller @Inject constructor(
                 val result = rxBluetooth.enable()
                 Timber.w("Result: $result")
             } else {
-                Timber.i("Bluetooth is All good!")
+                Timber.i("Bluetooth is All good! Starting...")
+                observeBluetoothStatus()
+                createServer()
             }
         }
     }
 
+    private fun enableDiscoverability() {
+        val discoverableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE)
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERY_TIMEOUT)
+        appContext.startActivity(discoverableIntent)
+    }
+
+    private fun observeBluetoothStatus() {
+        Timber.i("observe Bluetooth Status")
+        rxBluetoothSubscription.add(
+                rxBluetooth.observeDiscovery()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.computation())
+                        .subscribe { action ->
+                            Timber.i("Discovery Action $action")
+                        }
+        )
+        rxBluetoothSubscription.add(
+                rxBluetooth.observeScanMode()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.computation())
+                        .subscribe { mode ->
+                            Timber.i("Scan mode $mode")
+                        }
+        )
+        rxBluetoothSubscription.add(
+                rxBluetooth.observeAclEvent()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.computation())
+                        .subscribe { event ->
+                            Timber.i("Acl Event $event")
+                        }
+        )
+        rxBluetoothSubscription.add(
+                rxBluetooth.observeBondState()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.computation())
+                        .subscribe { state ->
+                            Timber.i("Bound state $state")
+                        }
+        )
+        rxBluetoothSubscription.add(
+                rxBluetooth.observeConnectionState()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.computation())
+                        .subscribe { state ->
+                            Timber.i("Connection state $state")
+                        }
+        )
+
+//        Timber.i("enableDiscoverability")
+//        enableDiscoverability()
+
+    }
+
     private fun createServer() {
+        Timber.i("Creating Server...")
         rxBluetoothSubscription.add(
                 rxBluetooth.connectAsServer(SERVER_NAME, SPP_UUID)
                         .subscribe({ socket ->
@@ -108,7 +155,7 @@ class RealBluetoothBB1Controller @Inject constructor(
                                         }
                                     }, { throwable ->
                                         Timber.w(throwable)
-                                        receiveSubject.onError(throwable)
+                                        createServer()
                                     })
                         }, { throwable ->
                             Timber.w(throwable)
@@ -116,7 +163,7 @@ class RealBluetoothBB1Controller @Inject constructor(
         )
     }
 
-    override fun subscribeForData(): Observable<ByteArray> = receiveSubject.publish()
+    override fun subscribeForData(): Observable<ByteArray> = receiveSubject.serialize()
 
     override fun sendData(data: ByteArray): Completable =
             Completable.fromAction {

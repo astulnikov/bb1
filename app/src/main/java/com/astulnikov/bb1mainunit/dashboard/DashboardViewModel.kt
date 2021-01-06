@@ -7,10 +7,7 @@ import com.astulnikov.bb1mainunit.arch.scheduler.SchedulerProvider
 import com.astulnikov.bb1mainunit.communication.ObserveCommandsUseCase
 import com.astulnikov.bb1mainunit.communication.ObserveMetricsUseCase
 import com.astulnikov.bb1mainunit.communication.SendCommandUseCase
-import com.astulnikov.bb1mainunit.communication.command.Command
-import com.astulnikov.bb1mainunit.communication.command.RunBackwardCommand
-import com.astulnikov.bb1mainunit.communication.command.RunForwardCommand
-import com.astulnikov.bb1mainunit.communication.command.RunStopCommand
+import com.astulnikov.bb1mainunit.communication.command.*
 import com.astulnikov.bb1mainunit.communication.metric.HeadingMetric
 import com.astulnikov.bb1mainunit.communication.metric.RearDistanceMetric
 import com.astulnikov.bb1mainunit.communication.metric.SpeedMetric
@@ -53,9 +50,14 @@ class DashboardViewModel @Inject constructor(
         compositeDisposable.add(
                 observeCommandsUseCase.execute()
                         .subscribeOn(schedulerProvider.io())
-                        .subscribe {
+                        .subscribe({
                             Timber.i("Command ${it::class.simpleName} received:  ${it.getBytes()}")
-                        }
+                            if (it is TurnToAngleCommand) {
+                                Timber.i("Angle: ${it.angle}")
+                            }
+                        }, { throwable ->
+                            Timber.w(throwable)
+                        })
         )
 
 //        Observable.interval(2000L, 2000L, TimeUnit.MILLISECONDS)

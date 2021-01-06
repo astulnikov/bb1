@@ -26,39 +26,39 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : BB
     private lateinit var device: UartDevice
     private lateinit var callback: UartDeviceCallback
 
-    init {
-        val deviceList = manager.uartDeviceList
-        if (deviceList.isEmpty()) {
-            Timber.i("No UART port available on this device.")
-        } else {
-            Timber.i("List of available devices: $deviceList")
-
-            device = manager.openUartDevice(UART_DEVICE_NAME)
-            device.setBaudrate(9600)
-            try {
-                callback = object : UartDeviceCallback {
-                    override fun onUartDeviceDataAvailable(uart: UartDevice?): Boolean {
-                        try {
-                            if (uart != null) {
-                                readUartBuffer(uart)
-                            }
-                        } catch (e: IOException) {
-                            Timber.w(e, "Unable to access UART device")
-                        }
-
-                        return true
-                    }
-
-                    override fun onUartDeviceError(uart: UartDevice?, error: Int) {
-                        Timber.w("$uart: Error event  $error")
-                    }
-                }
-                device.registerUartDeviceCallback(callback)
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
-    }
+//    init {
+//        val deviceList = manager.uartDeviceList
+//        if (deviceList.isEmpty()) {
+//            Timber.i("No UART port available on this device.")
+//        } else {
+//            Timber.i("List of available devices: $deviceList")
+//
+//            device = manager.openUartDevice(UART_DEVICE_NAME)
+//            device.setBaudrate(9600)
+//            try {
+//                callback = object : UartDeviceCallback {
+//                    override fun onUartDeviceDataAvailable(uart: UartDevice?): Boolean {
+//                        try {
+//                            if (uart != null) {
+//                                readUartBuffer(uart)
+//                            }
+//                        } catch (e: IOException) {
+//                            Timber.w(e, "Unable to access UART device")
+//                        }
+//
+//                        return true
+//                    }
+//
+//                    override fun onUartDeviceError(uart: UartDevice?, error: Int) {
+//                        Timber.w("$uart: Error event  $error")
+//                    }
+//                }
+//                device.registerUartDeviceCallback(callback)
+//            } catch (e: Exception) {
+//                Timber.e(e)
+//            }
+//        }
+//    }
 
     override fun subscribeForData(): Observable<ByteArray> {
         return metricsSubject.toSerialized()
@@ -66,8 +66,8 @@ class RealUartBB1Controller @Inject constructor(manager: PeripheralManager) : BB
 
     override fun sendData(data: ByteArray): Completable {
         return Completable.fromAction {
-            val count = device.write(data, data.size)
-            Timber.d("Wrote $count bytes to peripheral")
+//            val count = device.write(data, data.size)
+//            Timber.d("Wrote $count bytes to peripheral")
         }
     }
 
